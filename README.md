@@ -1,5 +1,5 @@
-# research
-This repository contains information and examples used for GNU toolchain “Windows on Arm” experiments.
+# Research
+This repository contains information and examples used for GNU toolchain targeting "Windows on Arm64" (WoARM64).
 
 ## Minimal windows console app in assembler
 
