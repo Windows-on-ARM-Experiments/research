@@ -37,3 +37,20 @@ make -j8
 ```
 
 To use our experimental version use git clone from [this](https://github.com/Windows-on-ARM-Experiments/binutils-gdb/tree/aarch64-pe) repo.
+
+### Build dependencies for WSL or Linux
+
+```
+sudo apt-get install build-essential binutils-for-build texinfo bison flex zlib1g-dev libgmp-dev dejagnu 
+```
+
+### Build dependencies for MSYS2
+
+Use the MSYS2 UCRT64 toolchain.
+```
+pacman -S mingw-w64-ucrt-x86_64-autotools mingw-w64-ucrt-x86_64-gnutls mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-gcc texinfo bison flex zlib gmp make libiconv dejagnu
+```
+
+## Patches 
+
+ - List of merged aarch64-pe binutils patches at [sourceware](https://sourceware.org/git/?p=binutils-gdb.git&a=search&h=HEAD&st=commit&s=aarch64-pe)
