@@ -30,4 +30,4 @@ jobs:
 
     - name: Test console app
       run: | 
-        .\con-app-aarch64.exe
+        cmd .\con-app-aarch64.exe
