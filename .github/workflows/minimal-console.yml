@@ -33,5 +33,8 @@ jobs:
         cmd link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
 
     - name: Test console app
+      run: cmd dir
+
+    - name: Test console app
       shell: pwsh
       run: .\con-app-aarch64.exe
