@@ -40,6 +40,9 @@ jobs:
           }
         [System.Environment]::SetEnvironmentVariable("Path", $Environment, "Machine")
         $env:PATH
+        $Remove = 'C:\Program Files\Git\usr\bin'
+        $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
+        $env:PATH
 
 
     - name: Link object file
