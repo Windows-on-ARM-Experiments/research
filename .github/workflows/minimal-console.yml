@@ -7,10 +7,14 @@ on:
     branches:
       - main
       - test-nurs
+    paths-ignore:
+      - '**/*.md'
   push:
     branches:
       - main
       - test-nurs
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   build:
@@ -29,5 +33,4 @@ jobs:
         cmd link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
 
     - name: Test console app
-      run: | 
-        cmd .\con-app-aarch64.exe
+      run: .\con-app-aarch64.exe
