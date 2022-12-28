@@ -53,7 +53,7 @@ jobs:
     - name: Configure build for arm64
       uses: ilammy/msvc-dev-cmd@v1
       with:
-        arch: arm64
+        arch: amd64_arm64
 
     - name: Link object file
       run: LINK con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
