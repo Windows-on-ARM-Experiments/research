@@ -28,7 +28,7 @@ jobs:
     
     - name: Test console app
       run: |
-        $Remove = 'C:\Program Files\Git\usr\bin\link.exe'
+        $Remove = 'C:\Program Files\Git\usr\bin'
         $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
 
 
