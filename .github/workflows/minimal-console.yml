@@ -32,4 +32,6 @@ jobs:
         cmd link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE /OUT:${{ github.workspace}}\con-app-aarch64.exe
 
     - name: Test console app
+      run: cmd /C cmd dir
+    - name: Test console app
       run: .\con-app-aarch64.exe
