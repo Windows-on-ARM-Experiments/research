@@ -54,4 +54,4 @@ jobs:
       run: cmd /c dir
 
     - name: Check
-      run: cmd /c dumpbin /HEADERS con-app-aarch64.exe
+      run: DUMPBIN /HEADERS con-app-aarch64.exe
