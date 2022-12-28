@@ -51,9 +51,9 @@ jobs:
         $env:PATH
 
     - name: Configure build for amd64
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: amd64
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: amd64
 
     - name: Link object file
       run: LINK con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
