@@ -53,3 +53,5 @@ jobs:
     - name: Run console app
       run: cmd dir
 
+    - name: Check
+      run: cmd dumpbin /HEADERS con-app-aarch64.exe
