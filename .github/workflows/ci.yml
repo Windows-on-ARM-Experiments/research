@@ -1,0 +1,19 @@
+name: ci
+on:
+  pull_request:
+    branches:
+      - main
+      - test-nurs
+    paths:
+      - '**/*.md'
+  push:
+    branches:
+      - main
+      - test-nurs
+    paths:
+      - '**/*.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No build required"'
