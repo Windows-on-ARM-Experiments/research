@@ -54,4 +54,3 @@ pacman -S mingw-w64-ucrt-x86_64-autotools mingw-w64-ucrt-x86_64-gnutls mingw-w64
 ## Patches 
 
  - List of merged aarch64-pe binutils patches at [sourceware](https://sourceware.org/git/?p=binutils-gdb.git&a=search&h=HEAD&st=commit&s=aarch64-pe)
-TEST
