@@ -27,8 +27,9 @@ jobs:
       run: .\tools\as.exe .\min-exe\con-app-aarch64.s -o con-app-aarch64.o
     
     - name: Test console app
-      shell: cmd
-      run: rm "C:\Program Files\Git\usr\bin\link.exe"
+      run: |
+        $Remove = 'C:\Program Files\Git\usr\bin\link.exe'
+        $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
 
 
     - name: Link object file
