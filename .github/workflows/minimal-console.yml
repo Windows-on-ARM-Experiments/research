@@ -33,7 +33,7 @@ jobs:
 
     - name: Link object file
       run: |
-        link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
+        LINK con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
 
     - name: Test console app
       run: cmd con-app-aarch64.exe
