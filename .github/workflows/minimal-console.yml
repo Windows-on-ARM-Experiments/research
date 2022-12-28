@@ -50,11 +50,12 @@ jobs:
         $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
         $env:PATH
 
-
-    - name: Link object file
-      uses: ilammy/msvc-dev-cmd@v1
+    - name: Configure build for amd64
+        uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: amd64
+
+    - name: Link object file
       run: LINK con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
 
     - name: Run console app
