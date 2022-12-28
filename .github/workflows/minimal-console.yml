@@ -25,12 +25,13 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Create object file
-      run: |
-        .\tools\as.exe .\min-exe\con-app-aarch64.s -o con-app-aarch64.o
+      shell: cmd
+      run: .\tools\as.exe .\min-exe\con-app-aarch64.s -o con-app-aarch64.o
     
     - name: Link object file
-      run: |
-        cmd link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
+      shell: cmd
+      run: link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
 
     - name: Test console app
-      run: Start-Process .\con-app-aarch64.exe
+      shell: cmd
+      run: .\con-app-aarch64.exe
