@@ -45,7 +45,7 @@ jobs:
       run: DUMPBIN /HEADERS .\con-app-aarch64.exe
 
     - name: Upload executable
-        uses: actions/upload-artifact@v3
-        with:
-          name: store-min-console-exe
-          path: .\con-app-aarch64.exe
+      uses: actions/upload-artifact@v3
+      with:
+        name: store-min-console-exe
+        path: .\con-app-aarch64.exe
