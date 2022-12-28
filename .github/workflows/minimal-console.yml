@@ -29,7 +29,7 @@ jobs:
     
     - name: Link object file
       run: |
-        rm /usr/bin/link 
+        rm /usr/bin/link.exe
         LINK /SUBSYSTEM:CONSOLE kernel32.Lib con-app-aarch64.o  
 
     - name: Test console app
