@@ -44,11 +44,11 @@ jobs:
     #     $env:PATH
 
 
-    - name: Remove /usr/bin/link
-      run: |
-        $Remove = 'C:\Program Files\Git\usr\bin'
-        $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
-        $env:PATH
+    # - name: Remove /usr/bin/link
+    #   run: |
+    #     $Remove = 'C:\Program Files\Git\usr\bin'
+    #     $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
+    #     $env:PATH
 
     - name: Configure build for arm64
       uses: ilammy/msvc-dev-cmd@v1
