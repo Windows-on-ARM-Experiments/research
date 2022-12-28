@@ -41,8 +41,9 @@ jobs:
 
 
     - name: Link object file
-      run: cmd link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
+      uses: seanmiddleditch/gha-setup-vsdevenv@master
+      run: link con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
 
     - name: Run console app
-      run: cmd con-app-aarch64.exe
+      run: con-app-aarch64.exe
 
