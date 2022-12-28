@@ -28,8 +28,15 @@ jobs:
     
     - name: Test console app
       run: |
-        $Remove = 'C:\Program Files\Git\usr\bin'
-        $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
+        $Environment = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+        foreach ($path in ($Environment).Split(";"))
+          {
+          if ($path -like "*\usr\bin*")
+            {
+              $Environment = $Environment.Replace($Path ,"")
+            }
+          }
+        [System.Environment]::SetEnvironmentVariable("Path", $Environment, "Machine")
 
 
     - name: Link object file
