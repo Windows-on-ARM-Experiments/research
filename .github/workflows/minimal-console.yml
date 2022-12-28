@@ -17,7 +17,7 @@ on:
 
 jobs:
   build:
-  - name: Build and run minimal console app
+    name: Build and run minimal console app
     runs-on: windows-latest
 
     steps:
