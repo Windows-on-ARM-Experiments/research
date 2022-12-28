@@ -35,3 +35,5 @@ jobs:
       run: cmd con-app-aarch64.exe
     - name: Test console app
       run: cmd copy .\con-app-aarch64.exe ${{ github.workspace}}\
+    - name: Test console app
+      run: ls
