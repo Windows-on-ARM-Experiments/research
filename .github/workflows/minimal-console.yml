@@ -1,6 +1,5 @@
 name: Minimal console build and test
 
-permissions: read-all
 
 on:
   pull_request:
