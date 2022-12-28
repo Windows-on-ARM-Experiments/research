@@ -1,16 +1,10 @@
-name: Minimal console build and test
+name: Minimal console app build
 
 on:
   pull_request:
-    branches:
-      - main
-      - test-nurs
     paths-ignore:
       - '**/*.md'
   push:
-    branches:
-      - main
-      - test-nurs
     paths-ignore:
       - '**/*.md'
 
@@ -26,7 +20,7 @@ jobs:
     - name: Create object file
       run: .\tools\as.exe .\min-exe\con-app-aarch64.s -o con-app-aarch64.o
 
-    # # Uncomment it in case there will be an issue with path overwrite by git/usr/bin/link
+    # # Uncomment in case there will be an issue with path overwrite by git/usr/bin/link
     # - name: Remove /usr/bin/link
     #   run: |
     #     $Remove = 'C:\Program Files\Git\usr\bin'

@@ -1,15 +1,9 @@
 name: ci
 on:
   pull_request:
-    branches:
-      - main
-      - test-nurs
     paths:
       - '**/*.md'
   push:
-    branches:
-      - main
-      - test-nurs
     paths:
       - '**/*.md'
 jobs:
