@@ -27,10 +27,11 @@ jobs:
     - name: Create object file
       run: .\tools\as.exe .\min-exe\con-app-aarch64.s -o con-app-aarch64.o
     
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
     - name: Link object file
-      run: |
-        rm /usr/bin/link.exe
-        LINK /SUBSYSTEM:CONSOLE kernel32.Lib con-app-aarch64.o  
+      run: LINK /SUBSYSTEM:CONSOLE kernel32.Lib con-app-aarch64.o  
 
     - name: Test console app
       run: .\con-app-aarch64.exe
