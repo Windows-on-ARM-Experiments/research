@@ -4,11 +4,13 @@ on:
   pull_request:
     branches:
       - main
+      - test-nurs
     paths-ignore:
       - '**/*.md'
   push:
     branches:
       - main
+      - test-nurs
     paths-ignore:
       - '**/*.md'
 
