@@ -33,8 +33,10 @@ git clone git://sourceware.org/git/binutils-gdb.git
 makedir build
 cd build
 ../binutils-gdb/configure --target=aarch64-pe
-make -j8
+make
 ```
+
+When using MSYS2 multi-threaded builds seem to fail. "make -j8" fails but "make" works.
 
 To use our experimental version use git clone from [this](https://github.com/Windows-on-ARM-Experiments/binutils-gdb/tree/aarch64-pe) repo.
 
@@ -48,7 +50,7 @@ sudo apt-get install build-essential binutils-for-build texinfo bison flex zlib1
 
 Use the MSYS2 UCRT64 toolchain.
 ```
-pacman -S mingw-w64-ucrt-x86_64-autotools mingw-w64-ucrt-x86_64-gnutls mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-gcc texinfo bison flex zlib gmp make libiconv dejagnu
+pacman -S autotools gcc gnutls python make git flex filesystem dejagnu bison texinfo gettext-devel base-devel mingw-w64-ucrt-x86_64-autotools mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gnutls mingw-w64-ucrt-x86_64-python
 ```
 
 ## Patches 
