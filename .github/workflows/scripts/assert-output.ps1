@@ -8,7 +8,8 @@ Start-Transcript -path .\console-output.txt -Append:$false
 Stop-Transcript
 
 $output = Get-Content .\console-output.txt -Raw 
-if( $output.Contains('Hello world'))
+
+if ($output.Contains('Hello world'))
 {
     Write-Host "Test PASSED!"
 }
