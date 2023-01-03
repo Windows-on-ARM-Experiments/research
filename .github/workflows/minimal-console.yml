@@ -41,7 +41,7 @@ jobs:
     - name: Upload executable
       uses: actions/upload-artifact@v3
       with:
-        name: store-min-console-exe
+        name: min-console-exe
         path: .\con-app-aarch64.exe
 
 
@@ -51,6 +51,12 @@ jobs:
     needs: build
     
     steps:
-    - name: Simple test
-      run: ls
+    - name: Download a single artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: min-console-exe
+    
+    - name: Run assert script
+      run: ./script/assert-output.ps1 | Out-Null
+
 
