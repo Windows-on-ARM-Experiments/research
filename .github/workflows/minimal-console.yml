@@ -47,7 +47,7 @@ jobs:
 
   test:
     name: Run and assert the output of app run
-    runs-on: [self-hosted, windows, arm64]
+    runs-on: [self-hosted, Windows, ARM64]
     needs: build
     
     steps:
