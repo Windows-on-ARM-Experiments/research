@@ -58,6 +58,9 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: min-console-exe
+    
+    - name: Run minimal console app
+      run: .\con-app-aarch64.exe
 
     - name: Run assert script
       run: .\.github\workflows\scripts\assert-output.ps1
