@@ -60,7 +60,6 @@ jobs:
         name: min-console-exe
 
     - name: Run assert script
-      run: | 
-        .\.github\workflows\scripts\assert-output.ps1
+      run: .\.github\workflows\scripts\assert-output.ps1
 
 
