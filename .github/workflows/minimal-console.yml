@@ -61,6 +61,6 @@ jobs:
 
     - name: Run assert script
       run: | 
-        .\.github\workflows\scripts\assert-output.ps1 | Out-Null
+        .\.github\workflows\scripts\assert-output.ps1
 
 
