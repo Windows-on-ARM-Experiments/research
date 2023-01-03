@@ -43,3 +43,14 @@ jobs:
       with:
         name: store-min-console-exe
         path: .\con-app-aarch64.exe
+
+
+  test:
+    name: Run and assert the output of app run
+    runs-on: [self-hosted, windows, arm64]
+    needs: build
+    
+    steps:
+    - name: Simple test
+      run: ls
+
