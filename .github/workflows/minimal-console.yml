@@ -56,7 +56,9 @@ jobs:
       with:
         name: min-console-exe
     
+    - run: ls .\script\
+
     - name: Run assert script
-      run: ./script/assert-output.ps1 | Out-Null
+      run: .\script\assert-output.ps1 | Out-Null
 
 
