@@ -56,6 +56,9 @@ jobs:
       with:
         name: min-console-exe
     
+    - run: ls .\.github
+    - run: ls .\.github\workflows
+    - run: ls .\.github\workflows\scripts\
     - name: Run assert script
       run: .\.github\workflows\scripts\assert-output.ps1 | Out-Null
 
