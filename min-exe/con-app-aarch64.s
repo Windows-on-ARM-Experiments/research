@@ -55,5 +55,3 @@ hello_world_text:
 	.hword	100
 	.hword	10
 	.hword	0
-
-	.addrsig
