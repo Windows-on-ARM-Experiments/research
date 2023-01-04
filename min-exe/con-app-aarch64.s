@@ -12,7 +12,6 @@
 	.scl	2;
 	.type	32;
 	.endef
-
 	.globl	mainCRTStartup                  // -- Begin function mainCRTStartup
 	.p2align	2
 mainCRTStartup:                         // @mainCRTStartup
@@ -21,16 +20,16 @@ mainCRTStartup:                         // @mainCRTStartup
 	adrp	x8, hello_world_text
 	add	x8, x8, :lo12:hello_world_text
 	str	x8, [sp, #24]
-	ldr	x8, [sp, #24]
-	str	x8, [sp, #8]                    // 8-byte Folded Spill
 	adrp	x8, __imp_GetStdHandle
 	ldr	x8, [x8, :lo12:__imp_GetStdHandle]
 	mov	w0, #-11
 	blr	x8
-	ldr	x1, [sp, #8]                    // 8-byte Folded Reload
-	adrp	x8, __imp_WriteConsoleW
-	ldr	x8, [x8, :lo12:__imp_WriteConsoleW]
-	mov	w2, #11
+	str	x0, [sp, #8]
+	ldr	x1, [sp, #24]
+	ldr	x0, [sp, #8]
+	adrp	x8, __imp_WriteFile
+	ldr	x8, [x8, :lo12:__imp_WriteFile]
+	mov	w2, #24
 	add	x3, sp, #20
 	mov	x4, xzr
 	blr	x8
@@ -40,20 +39,19 @@ mainCRTStartup:                         // @mainCRTStartup
 	ret
                                         // -- End function
 	.section	.rdata
-	.globl	hello_world_text
+	.globl	hello_world_text 
 	.p2align	3
 hello_world_text:
-	.hword	72 
+	.hword	72
 	.hword	101
 	.hword	108
 	.hword	108
 	.hword	111
-	.hword	32 
+	.hword	32
 	.hword	119
 	.hword	111
 	.hword	114
 	.hword	108
 	.hword	100
-	.hword	10 
-	.hword	0  
-
+	.hword	10
+	.hword	0
