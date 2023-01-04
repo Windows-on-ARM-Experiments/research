@@ -1,6 +1,11 @@
 // This is a minimal console application that does not use the crt 
 // and invokes window kernel methods directly.
 // 
+// Bulild with clang
+//
+// clang --target=arm64-pc-windows-msvc con-app.c -nostdlib -Wl,/SUBSYSTEM:CONSOLE -lkernel32 -o con-app-aarch64.exe
+// clang --target=x86_64-pc-windows-msvc con-app.c -nostdlib -Wl,/SUBSYSTEM:CONSOLE -lkernel32 -o con-app-x64.exe
+//
 // This version includes seh info
 //
 	.text
@@ -10,7 +15,7 @@
 	.endef
 	.globl	"@feat.00"
 .set "@feat.00", 0
-	.file	"test-min-console.c"
+	.file	"con-app.c"
 	.def	mainCRTStartup;
 	.scl	2;
 	.type	32;
@@ -28,16 +33,16 @@ mainCRTStartup:                         // @mainCRTStartup
 	adrp	x8, hello_world_text
 	add	x8, x8, :lo12:hello_world_text
 	str	x8, [sp, #24]
-	ldr	x8, [sp, #24]
-	str	x8, [sp, #8]                    // 8-byte Folded Spill
 	adrp	x8, __imp_GetStdHandle
 	ldr	x8, [x8, :lo12:__imp_GetStdHandle]
 	mov	w0, #-11
 	blr	x8
-	ldr	x1, [sp, #8]                    // 8-byte Folded Reload
-	adrp	x8, __imp_WriteConsoleW
-	ldr	x8, [x8, :lo12:__imp_WriteConsoleW]
-	mov	w2, #11
+	str	x0, [sp, #8]
+	ldr	x1, [sp, #24]
+	ldr	x0, [sp, #8]
+	adrp	x8, __imp_WriteFile
+	ldr	x8, [x8, :lo12:__imp_WriteFile]
+	mov	w2, #24
 	add	x3, sp, #20
 	mov	x4, xzr
 	blr	x8
@@ -53,7 +58,7 @@ mainCRTStartup:                         // @mainCRTStartup
 	.seh_endproc
                                         // -- End function
 	.section	.rdata,"dr",discard,hello_world_text
-	.globl	hello_world_text
+	.globl	hello_world_text 
 	.p2align	3
 hello_world_text:
 	.hword	72                              // 0x48

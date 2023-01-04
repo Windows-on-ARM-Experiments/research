@@ -7,31 +7,41 @@
 // clang --target=x86_64-pc-windows-msvc con-app.c -nostdlib -Wl,/SUBSYSTEM:CONSOLE -lkernel32 -o con-app-x64.exe
 //
 
-typedef void *HANDLE;
-
+#define ATTACH_PARENT_PROCESS ((DWORD)-1)
 #define STD_OUTPUT_HANDLE   ((DWORD)-11)
 #define NULL    ((void *)0)
+#define WINBASEAPI __declspec(dllimport)
+#define WINAPI __stdcall
+
+struct _OVERLAPPED;
 
 typedef unsigned short wchar_t;
 typedef unsigned long       DWORD;
 typedef int                 BOOL;
-typedef DWORD            *LPDWORD;
-typedef void             *LPVOID;
+typedef DWORD* LPDWORD;
+typedef void* LPVOID;
+typedef const void* LPCVOID;
+typedef void* HANDLE;
+typedef struct _OVERLAPPED OVERLAPPED, * LPOVERLAPPED;
 
-__declspec(dllimport) HANDLE __stdcall GetStdHandle(DWORD nStdHandle);
+WINBASEAPI HANDLE WINAPI GetStdHandle( DWORD nStdHandle);
 
-__declspec(dllimport) BOOL __stdcall WriteConsoleW(
-    HANDLE hConsoleOutput,
-    const void* lpBuffer,
-    DWORD nNumberOfCharsToWrite,
-    LPDWORD lpNumberOfCharsWritten,
-    LPVOID lpReserved
-    );
+WINBASEAPI
+BOOL
+WINAPI
+WriteFile(
+    HANDLE hFile,
+    LPCVOID lpBuffer,
+    DWORD nNumberOfBytesToWrite,
+    LPDWORD lpNumberOfBytesWritten,
+    LPOVERLAPPED lpOverlapped
+);
 
 int mainCRTStartup()
 {
-   const wchar_t *text = L"Hello world\n";
-   DWORD dwWritten;
-   WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE), text, 11, &dwWritten, NULL);
-   return 0;
+    const wchar_t* text = L"Hello world\n";
+    DWORD written;
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    WriteFile(h, text, 12 * sizeof(wchar_t), &written, NULL);
+    return 0;
 }
