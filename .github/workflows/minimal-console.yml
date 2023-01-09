@@ -36,10 +36,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        path: min-con-app
+        path: min-con-app-source
     
     - name: Create object file
       run: |
+        cd min-con-app-source
         ./../build/as-new ./min-exe/con-app-aarch64.s -o con-app-aarch64.o  
 
     - name: Upload object file
