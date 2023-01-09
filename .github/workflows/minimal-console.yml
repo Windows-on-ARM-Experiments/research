@@ -10,16 +10,58 @@ on:
       - '**/*.md'
 
 jobs:
+  build-binutils:
+    name: Build binutils and create object file
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download binutils-gdb source code
+      uses: actions/checkout@v3
+      with:
+        repository: Windows-on-ARM-Experiments/binutils-gdb
+
+    - name: Install dependencies
+      run: | 
+        sudo apt-get update
+        sudo apt-get -y install build-essential binutils-for-build texinfo bison flex zlib1g-dev libgmp-dev dejagnu libmpfr-dev
+  
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+       ../configure --target=aarch64-pe --prefix="$HOME/cross"
+      
+    - name: Build
+      run: make -j8
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        path: min-con-app
+    
+    - name: Create object file
+      run: |
+        ./../build/as-new ./min-exe/con-app-aarch64.s -o con-app-aarch64.o  
+
+    - name: Upload object file
+      uses: actions/upload-artifact@v3
+      with:
+        name: obj-file
+        path: con-app-aarch64.o  
+
   build:
     name: Build, test, create artifact
     runs-on: [self-hosted, Windows, ARM64]
+    needs: build-binutils
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Create object file
-      run: .\tools\as.exe .\min-exe\con-app-aarch64.s -o con-app-aarch64.o
+    - name: Download object file
+      uses: actions/download-artifact@v3
+      with:
+        name: obj-file
 
     - name: Link object file
       run: LINK con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
