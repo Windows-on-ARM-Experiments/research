@@ -15,23 +15,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Install dependencies
+      run: | 
+        sudo apt-get update
+        sudo apt-get -y install build-essential binutils-for-build texinfo bison flex zlib1g-dev libgmp-dev dejagnu libmpfr-dev
+
     - name: Download binutils-gdb source code
       uses: actions/checkout@v3
       with:
         repository: Windows-on-ARM-Experiments/binutils-gdb
         ref: master
-
-    - name: Install dependencies
-      run: | 
-        sudo apt-get update
-        sudo apt-get -y install build-essential binutils-for-build texinfo bison flex zlib1g-dev libgmp-dev dejagnu libmpfr-dev
   
     - name: Configure
       run: |
         mkdir build
         cd build
         ../configure --target=aarch64-pe
-        pwd
         make -j8
       
     - name: Build
