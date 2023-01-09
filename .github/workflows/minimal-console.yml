@@ -31,6 +31,8 @@ jobs:
         mkdir build
         cd build
         ../configure --target=aarch64-pe
+        pwd
+        make -j8
       
     - name: Build
       run: make -j8
