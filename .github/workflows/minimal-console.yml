@@ -30,7 +30,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        ../configure --target=aarch64-pe
+        ../configure --target=aarch64-pe --prefix="$HOME/cross"
         make -j8
 
     - name: Checkout repository
