@@ -20,6 +20,11 @@ jobs:
         sudo apt-get update
         sudo apt-get -y install build-essential binutils-for-build texinfo bison flex zlib1g-dev libgmp-dev dejagnu libmpfr-dev
 
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        path: min-con-app-source
+
     - name: Download binutils-gdb source code
       uses: actions/checkout@v3
       with:
@@ -33,11 +38,6 @@ jobs:
         ../configure --target=aarch64-pe
         make -j8
 
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        path: min-con-app-source
-    
     - name: Create object file
       run: |
         cd min-con-app-source
