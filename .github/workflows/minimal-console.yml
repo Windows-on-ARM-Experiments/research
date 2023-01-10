@@ -2,6 +2,16 @@ name: Minimal console app build
 
 on:
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch name'
+        type: option
+        default: harmstone
+        options:
+          - harmstone
+          - master
+          - aarch64-pe-dev
+          - aarch64-pe-zac
   pull_request:
     paths-ignore:
       - '**/*.md'
@@ -24,7 +34,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: Windows-on-ARM-Experiments/binutils-gdb
-        ref: harmstone
+        ref: ${{ inputs.branch }}
   
     - name: Configure and build
       run: |
@@ -42,19 +52,16 @@ jobs:
       run: |
         cd min-con-app-source
         ./../build/gas/as-new ./min-exe/con-app-aarch64.s -o con-app-aarch64.o  
-    - name: Test
-      run: |
-        ls
-        echo "--------"
-        ls ../build/gas/
-        echo "--------"
-        ls ./min-exe
-        
+
+    - run: ls
+    - run: ls ./../build/gas/
+    - run: ls ./min-exe/
+
     - name: Upload object file
       uses: actions/upload-artifact@v3
       with:
         name: obj-file
-        path: con-app-aarch64.o  
+        path: ./con-app-aarch64.o  
 
   build:
     name: Build, test, create artifact
