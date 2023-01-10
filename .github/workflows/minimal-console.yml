@@ -42,7 +42,14 @@ jobs:
       run: |
         cd min-con-app-source
         ./../build/gas/as-new ./min-exe/con-app-aarch64.s -o con-app-aarch64.o  
-
+    - name: Test
+      run: |
+        ls
+        echo "--------"
+        ls ../build/gas/
+        echo "--------"
+        ls ./min-exe
+        
     - name: Upload object file
       uses: actions/upload-artifact@v3
       with:
