@@ -30,17 +30,11 @@ jobs:
         sudo apt-get update
         sudo apt-get -y install build-essential binutils-for-build texinfo bison flex zlib1g-dev libgmp-dev dejagnu libmpfr-dev
 
-    - name: Setup binutils branch
-      id: setup-vars
-      run: |
-        BINUTILS_BRANCH=${{ github.event.inputs.branch }}
-        echo "binutils-branch=${BINUTILS_BRANCH:-${{ github.event.inputs.branch.default }}" >> $GITHUB_OUTPUT
-
     - name: Download binutils-gdb source code
       uses: actions/checkout@v3
       with:
         repository: Windows-on-ARM-Experiments/binutils-gdb
-        ref: ${{ steps.setup-vars.outputs.binutils-branch}}
+        ref: ${{ github.event.inputs.branch || github.event.inputs.branch.default }}
         path: binutils-gdb
   
     - name: Checkout repository
