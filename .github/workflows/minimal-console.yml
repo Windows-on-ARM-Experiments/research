@@ -5,8 +5,7 @@ on:
     inputs:
       branch:
         description: 'Branch name'
-        type: option
-        default: harmstone
+        type: choice
         options:
           - harmstone
           - master
