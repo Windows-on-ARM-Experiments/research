@@ -35,13 +35,16 @@ jobs:
       with:
         repository: Windows-on-ARM-Experiments/binutils-gdb
         ref: harmstone
+        path: binutils-gdb
   
     - name: Configure and build
       run: |
+        cd binutils-gdb
         mkdir build
         cd build
         ../configure --target=aarch64-pe --prefix="$HOME/cross"
         make -j8
+        cd ../../
 
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -50,12 +53,7 @@ jobs:
     
     - name: Create object file
       run: |
-        cd min-con-app-source
-        ./../build/gas/as-new ./min-exe/con-app-aarch64.s -o con-app-aarch64.o  
-
-    - run: ls
-    - run: ls ./../build/gas/
-    - run: ls ./min-exe/
+        ./binutils-gdb/build/gas/as-new ./min-con-app-source/min-exe/con-app-aarch64.s -o con-app-aarch64.o  
 
     - name: Upload object file
       uses: actions/upload-artifact@v3
