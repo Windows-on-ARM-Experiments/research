@@ -34,7 +34,7 @@ jobs:
       id: setup-vars
       run: |
         BINUTILS_BRANCH=${{ github.event.inputs.branch }}
-        echo "binutils-branch=${BINUTILS_BRANCH:-"${{ github.event.inputs.branch.default }}"" >> $GITHUB_OUTPUT
+        echo "binutils-branch=${BINUTILS_BRANCH:-${{ github.event.inputs.branch.default }}" >> $GITHUB_OUTPUT
 
     - name: Download binutils-gdb source code
       uses: actions/checkout@v3
