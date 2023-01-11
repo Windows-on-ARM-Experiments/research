@@ -37,6 +37,11 @@ jobs:
         ref: harmstone
         path: binutils-gdb
   
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        path: min-con-app-source
+
     - name: Configure and build
       run: |
         cd binutils-gdb
@@ -45,11 +50,6 @@ jobs:
         ../configure --target=aarch64-pe --prefix="$HOME/cross"
         make -j8
         cd ../../
-
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        path: min-con-app-source
     
     - name: Create object file
       run: |
