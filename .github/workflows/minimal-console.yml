@@ -50,8 +50,7 @@ jobs:
         mkdir build
         cd build
         ../configure --target=aarch64-pe --prefix="$HOME/cross"
-        make -j8
-        cd ../../
+        make -j$(nproc)
     
     - name: Create object file
       run: |
