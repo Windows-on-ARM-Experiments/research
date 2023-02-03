@@ -46,9 +46,8 @@ jobs:
 
     - name: Configure and build
       run: |
-        cd binutils-gdb
-        mkdir build
-        cd build
+        mkdir -p binutils-gdb/build
+        cd binutils-gdb/build
         ../configure --target=aarch64-pe --prefix="$HOME/cross"
         make -j$(nproc)
     
@@ -79,9 +78,6 @@ jobs:
     - name: Link object file
       run: |
         C:\Program` Files\Git\bin\bash.exe .github\workflows\scripts\link.sh
-
-    - name: Dumpbin the executable
-      run: DUMPBIN /HEADERS .\con-app-aarch64.exe
 
     - name: Upload executable
       uses: actions/upload-artifact@v3
