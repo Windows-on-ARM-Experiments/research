@@ -64,7 +64,7 @@ jobs:
 
   build:
     name: Build, test, create artifact
-    runs-on: [self-hosted, Windows, ARM64]
+    runs-on: [self-hosted, Windows, ARM64, GCC]
     needs: build-binutils
 
     steps:
@@ -77,7 +77,8 @@ jobs:
         name: obj-file
 
     - name: Link object file
-      run: LINK con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
+      run: |
+        C:\Program` Files\Git\bin\bash.exe .github\workflows\scripts\link.sh
 
     - name: Dumpbin the executable
       run: DUMPBIN /HEADERS .\con-app-aarch64.exe
