@@ -5,12 +5,7 @@ on:
     inputs:
       branch:
         description: 'Branch name'
-        type: choice
-        options:
-          - harmstone
-          - master
-          - aarch64-pe-dev
-          - aarch64-pe-zac
+        type: string
   pull_request:
     paths-ignore:
       - '**/*.md'
@@ -19,7 +14,7 @@ on:
       - '**/*.md'
 
 env:
-  default_branch: harmstone  
+  default_branch: aarch64-pe-dev 
 
 jobs:
   build-binutils:
