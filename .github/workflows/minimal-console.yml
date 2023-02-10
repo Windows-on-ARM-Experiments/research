@@ -1,6 +1,11 @@
 name: Minimal console app build
 
 on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch name'
+        type: string
   pull_request:
     paths-ignore:
       - '**/*.md'
@@ -8,35 +13,66 @@ on:
     paths-ignore:
       - '**/*.md'
 
+env:
+  default_branch: aarch64-pe-dev 
+
 jobs:
+  build-binutils:
+    name: Build binutils and create object file
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install dependencies
+      run: | 
+        sudo apt-get update
+        sudo apt-get -y install build-essential binutils-for-build texinfo bison flex zlib1g-dev libgmp-dev dejagnu libmpfr-dev
+
+    - name: Download binutils-gdb source code
+      uses: actions/checkout@v3
+      with:
+        repository: Windows-on-ARM-Experiments/binutils-gdb
+        ref: ${{ inputs.branch || env.default_branch }}
+        path: binutils-gdb
+  
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        path: min-con-app-source
+
+    - name: Configure and build
+      run: |
+        mkdir -p binutils-gdb/build
+        cd binutils-gdb/build
+        ../configure --target=aarch64-pe --prefix="$HOME/cross"
+        make -j$(nproc)
+    
+    - name: Create object file
+      run: |
+        ./binutils-gdb/build/gas/as-new ./min-con-app-source/min-exe/con-app-aarch64.s -o con-app-aarch64.o  
+
+    - name: Upload object file
+      uses: actions/upload-artifact@v3
+      with:
+        name: obj-file
+        path: ./con-app-aarch64.o  
+
   build:
-    name: Build and upload minimal console app
-    runs-on: windows-latest
+    name: Build, test, create artifact
+    runs-on: [self-hosted, Windows, ARM64, GCC]
+    needs: build-binutils
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Create object file
-      run: .\tools\as.exe .\min-exe\con-app-aarch64.s -o con-app-aarch64.o
-
-    # # Uncomment in case there will be an issue with path overwrite by git/usr/bin/link
-    # - name: Remove /usr/bin/link
-    #   run: |
-    #     $Remove = 'C:\Program Files\Git\usr\bin'
-    #     $env:Path = ($env:Path.Split(';') | Where-Object -FilterScript {$_ -ne $Remove}) -join ';'
-    #     $env:PATH
-
-    - name: Configure build for arm64
-      uses: ilammy/msvc-dev-cmd@v1
+    - name: Download object file
+      uses: actions/download-artifact@v3
       with:
-        arch: amd64_arm64
+        name: obj-file
 
     - name: Link object file
-      run: LINK con-app-aarch64.o kernel32.Lib /SUBSYSTEM:CONSOLE
-
-    - name: Dumpbin the executable
-      run: DUMPBIN /HEADERS .\con-app-aarch64.exe
+      run: |
+        C:\Program` Files\Git\bin\bash.exe .github\workflows\scripts\link.sh
 
     - name: Upload executable
       uses: actions/upload-artifact@v3
@@ -44,25 +80,8 @@ jobs:
         name: min-console-exe
         path: .\con-app-aarch64.exe
 
-
-  test:
-    name: Run and assert the output of app run
-    runs-on: [self-hosted, Windows, ARM64]
-    needs: build
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Download a single artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: min-console-exe
-    
     - name: Run minimal console app
       run: .\con-app-aarch64.exe
-
+    
     - name: Run assert script
       run: .\.github\workflows\scripts\assert-output.ps1
-
-
