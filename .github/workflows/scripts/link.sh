@@ -4,7 +4,7 @@ set -ex # stop bash script on error
 
 research_dir=$(pwd)
 
-cd "C:\Program Files\Microsoft Visual Studio\2022\Preview\VC\Tools\MSVC"
+cd "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC"
 cd $(ls -d */|tail -n 1)
 cd ./bin/Hostarm64/arm64/
 link_exe_path=$(pwd)/link.exe
